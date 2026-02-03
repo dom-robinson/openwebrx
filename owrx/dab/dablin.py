@@ -12,7 +12,7 @@ class DablinModule(ExecModule):
         )
 
     def _buildArgs(self):
-        return ["dablin", "-p", "-s", "{:#06x}".format(self.serviceId)]
+        return ["bash", "-c", "dablin -u -s {:#06x} | ffmpeg -v error -i pipe:0 -f f32le -ar 48000 -ac 2 pipe:1".format(self.serviceId)]
 
     def setDabServiceId(self, serviceId: int) -> None:
         self.serviceId = serviceId
