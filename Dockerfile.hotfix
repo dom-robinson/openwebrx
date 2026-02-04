@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y sox ffmpeg libfaad2 libmpg123-0 libsdl2
 # Copy new dablin binary
 COPY --from=builder /src/dablin/build/src/dablin /usr/local/bin/dablin
 
-# Patch files
+# Patch files (PR #419: DAB+ sample rate fix via ffmpeg resampling)
 COPY owrx/dab/dablin.py /opt/openwebrx/owrx/dab/dablin.py
 COPY csdr/chain/dablin.py /opt/openwebrx/csdr/chain/dablin.py
 
