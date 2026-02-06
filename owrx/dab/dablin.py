@@ -12,7 +12,8 @@ class DablinModule(ExecModule):
         )
 
     def _buildArgs(self):
-        return ["bash", "-c", "dablin -u -s {:#06x} | mbuffer -q -m 1M | ffmpeg -v error -i pipe:0 -f f32le -ar 48000 -ac 1 pipe:1".format(self.serviceId)]
+        # Use -w so dablin outputs WAV (with correct sample rate in header); ffmpeg then resamples to 48k
+        return ["bash", "-c", "dablin -w -s {:#06x} | mbuffer -q -m 1M | ffmpeg -v error -i pipe:0 -f f32le -ar 48000 -ac 1 pipe:1".format(self.serviceId)]
 
     def setDabServiceId(self, serviceId: int) -> None:
         self.serviceId = serviceId
