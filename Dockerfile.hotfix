@@ -26,5 +26,8 @@ COPY --from=builder /src/dablin/build/src/dablin /usr/local/bin/dablin
 COPY owrx/dab/dablin.py /opt/openwebrx/owrx/dab/dablin.py
 COPY csdr/chain/dablin.py /opt/openwebrx/csdr/chain/dablin.py
 
+# Frontend: defensive JS so /compiled/receiver.js works when DOM elements are missing (e.g. template/load order)
+COPY htdocs/openwebrx.js /opt/openwebrx/htdocs/openwebrx.js
+
 # Bytecode compile
 RUN python3 -m py_compile /opt/openwebrx/owrx/dab/dablin.py /opt/openwebrx/csdr/chain/dablin.py
